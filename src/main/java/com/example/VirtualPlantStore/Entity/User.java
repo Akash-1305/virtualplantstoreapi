@@ -27,13 +27,8 @@ public class User {
 	private String address;
 	private String mobile;
 	private String status = "Active";
+	private String city;
 
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public int getId() {
 		return id;
 	}
@@ -76,6 +71,20 @@ public class User {
 		this.mobile = mobile;
 	}
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
 	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private List<Cart> cart;
@@ -86,5 +95,6 @@ public class User {
 	public void setCart(List<Cart> cart) {
 		this.cart = cart;
 	}
+	
 	
 }

@@ -29,18 +29,18 @@ public class LoginController {
 			if (admin.getPassword().equals(obj.getPassword())) {
 				return new ResponseEntity<>("admin", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>("Invalid Password", HttpStatus.OK);
+				throw new RuntimeException("Invalid Password");
 			}
 		} else if (obj.getUserType().equals("user")) {
 			var user = userRepo.findByEmail(obj.getEmail()).orElseThrow(() -> new RuntimeException("User Not Found"));
 			if (user.getStatus().equals("Blocked")) {
-				return new ResponseEntity<>("User Blocked", HttpStatus.OK);
+				throw new RuntimeException("User Blocked");
 			} else if (user.getPassword().equals(obj.getPassword())) {
 				return new ResponseEntity<>("user", HttpStatus.OK);
 			}
 
 			else {
-				return new ResponseEntity<>("Invalid Password", HttpStatus.OK);
+				throw new RuntimeException("Invalid Password");
 			}
 		} else {
 			throw new RuntimeException("Invalid User Type");

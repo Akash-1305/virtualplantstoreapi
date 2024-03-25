@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.VirtualPlantStore.Entity.User;
 import com.example.VirtualPlantStore.Repository.UserRepo;
 
 @RestController
+@RequestMapping("/User")
 @CrossOrigin("*")
 
 public class UserController {
@@ -33,8 +35,15 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping("/GetUser/{userid}")
+	public ResponseEntity<?> getUser(@PathVariable String userid){
+		User user = userRepo.findByEmail(userid).orElseThrow(() -> new RuntimeException("User not found"));
+		return new ResponseEntity<>(user, HttpStatus.OK);
+		
+	}
+	
 	@GetMapping("/GetUsers")
-	public ResponseEntity<?> getUser (){
+	public ResponseEntity<?> getUsers (){
 		return new ResponseEntity<>(userRepo.findAll(), HttpStatus.OK);
 	}
 	
